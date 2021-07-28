@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render
 from .models import Task, Category
 from django.utils import timezone
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -28,6 +29,33 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskDetailView(DetailView):
     model = Task
     template_name = 'task_detail.html'
+
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):  # new
+    model = Task
+    fields = '__all__'
+    template_name = 'task_edit.html'
+
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):  # new
+    model = Task
+    template_name = 'task_delete.html'
+    success_url = reverse_lazy('task_list')
+
+
+class CategoryCreateView(LoginRequiredMixin, CreateView):
+    model = Category
+    template_name = 'category_new.html'
+    fields = '__all__'
+
+    def form_valid(self, form):  # for add new task
+        form.instance.category = self.request.user
+        return super().form_valid(form)
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'category_detail.html'
 
 
 def index(request):  # the index view

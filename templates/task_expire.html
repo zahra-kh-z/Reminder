@@ -4,8 +4,17 @@
 
     <h1>expired tasks: </h1>
     {% for task in tasks_expire_list %}
-        {{ task.title }}
+        <div class="card" style="max-width: 600px">
+            <div class="card-header">
+                <span class="font-weight-bold"> {{ task.title|title }}</span>
+                <br>
+        <div class="card-footer text-center text-muted">
+                <a class="text-decoration-none" href="{{ task.get_absolute_url }}">Detail</a> |
+                 <a class="text-decoration-none" href="{% url 'task_edit' task.pk %}">Edit</a> |
+                <a class="text-decoration-none" href="{% url 'task_delete' task.pk %}">Delete</a>
+            </div>
         <br>
+            </div>
     {% endfor %}
 
 {% endblock %}

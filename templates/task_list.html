@@ -1,28 +1,82 @@
 {% extends 'base.html' %}
 {% block title %}Task List{% endblock title %}
 {% block content %}
-
-    {% for task in object_list %}
-        <div class="card">
-            <div class="card-header">
-                <span class="font-weight-bold"> {{ task.title|title }}</span>
-                <br>
-            {% if task.expire_date|date:"YmdHis" < task.timesince|date:"YmdHis" %}
-                 <p>task is expire</p>
-                {% else %}
-                 time for doing: {{ task.expire_date|timeuntil:task.timesince }}
-            {% endif %}
-            </div>
-
-            <div class="card-footer text-center text-muted">
-{#                <a href="#">Edit</a> | <a href="#">Delete</a>| <a href="{% url 'task_detail' task.pk %}">Detail</a>#}
-                <a href="{{ task.get_absolute_url }}">Detail of task: {{ task.title }}</a>
-            </div>
-        </div> <br>
-    {% endfor %}
-
-    <button class="btn btn-info" type="submit"><a class="text-dark" href="{% url 'tasks_json_list' %}">save_task_list</a></button>
-    <button class="btn btn-info" type="submit"><a class="text-dark" href="{% url 'show_expire' %}">expire_task_list</a></button><br><br>
-
-
+{% load static %}
+    <link rel="stylesheet" href={% static 'css/task_list.css' %}>
+        <section class="bg-light p-3 m-3 text-center">
+        <table style="border-collapse:collapse; margin: 30px auto ">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Time</th>
+                <th>Do</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in object_list %}
+                <tr>
+{#                    <td>{{ task.title|title }}</td>#}
+                    {% if task.expire_date|date:"YmdHis" < task.timesince|date:"YmdHis" %}
+                        <td>{{ task.title|title }}</td>
+                        <td>task is expire</td>
+                         <td>
+                            <div class="card-footer text-center text-muted">
+                            <a class="text-decoration-none" href="{{ task.get_absolute_url }}">Detail</a> |
+                             <a class="text-decoration-none" href="{% url 'task_edit' task.pk %}">Edit</a> |
+                            <a class="text-decoration-none" href="{% url 'task_delete' task.pk %}">Delete</a>
+                            </div>
+                        </td>
+                    {% else %}
+                        <td>{{ task.title|title }}</td>
+                        <td>time for doing: {{ task.expire_date|timeuntil:task.timesince }}</td>
+{#                    {% endif %}#}
+                        <td>
+                            <div class="card-footer text-center text-muted">
+    {#                        <a href="#">Edit</a> | <a href="#">Delete</a>| <a href="{% url 'task_detail' task.pk %}">Detail</a>#}
+    {#                        <a href="{{ task.get_absolute_url }}">Detail of task: {{ task.title }}</a> |#}
+                            <a class="text-decoration-none" href="{{ task.get_absolute_url }}">Detail</a> |
+                             <a class="text-decoration-none" href="{% url 'task_edit' task.pk %}">Edit</a> |
+                            <a class="text-decoration-none" href="{% url 'task_delete' task.pk %}">Delete</a>
+                            </div>
+                        </td>
+                {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </section>
+        </div>
+    <div class="text-center">
+    <button class="btn btn-info " type="submit"><a class="text-dark text-decoration-none" href="{% url 'tasks_json_list' %}">save_task_list</a></button>
+    <button class="btn btn-info" type="submit"><a class="text-dark text-decoration-none" href="{% url 'show_expire' %}">expire_task_list</a></button><br><br>
+    </div>
 {% endblock content %}
+
+
+
+{#{% extends 'base.html' %}#}
+{#{% block title %}Task List{% endblock title %}#}
+{#{% block content %}#}
+{#    {% for task in object_list %}#}
+{#        <div class="card text-center" style="max-width: 600px">#}
+{#            <div class="card-header">#}
+{#                <span class="font-weight-bold"> {{ task.title|title }}</span>#}
+{#                <br>#}
+{#            {% if task.expire_date|date:"YmdHis" < task.timesince|date:"YmdHis" %}#}
+{#                 <p>task is expire</p>#}
+{#                {% else %}#}
+{#                 time for doing: {{ task.expire_date|timeuntil:task.timesince }}#}
+{#            {% endif %}#}
+{#            </div>#}
+{#            <div class="card-footer text-center text-muted">#}
+{#                <a href="#">Edit</a> | <a href="#">Delete</a>| <a href="{% url 'task_detail' task.pk %}">Detail</a>#}
+{#                <a href="{{ task.get_absolute_url }}">Detail of task: {{ task.title }}</a> |#}
+{#                <a href="{{ task.get_absolute_url }}">Detail</a> |#}
+{#                 <a href="{% url 'task_edit' task.pk %}">Edit</a> |#}
+{#                <a href="{% url 'task_delete' task.pk %}">Delete</a>#}
+{#            </div>#}
+{#        </div> <br>#}
+{#    {% endfor %}#}
+{#    <button class="btn btn-info" type="submit"><a class="text-dark" href="{% url 'tasks_json_list' %}">save_task_list</a></button>#}
+{#    <button class="btn btn-info" type="submit"><a class="text-dark" href="{% url 'show_expire' %}">expire_task_list</a></button><br><br>#}
+{#{% endblock content %}#}

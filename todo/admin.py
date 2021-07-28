@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .models import Task, Category
 
+
 # Register your models here.
-admin.site.register(Category)
+# admin.site.register(Category)
 
 
 @admin.register(Task)
@@ -12,3 +13,7 @@ class TaskAdmin(admin.ModelAdmin):
         model = Task
 
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    class Meta:
+        model = Category

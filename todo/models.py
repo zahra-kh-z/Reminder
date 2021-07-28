@@ -14,6 +14,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name  # name to be shown when called
 
+    def get_absolute_url(self):
+        """for url absolute"""
+        return reverse('category_detail', args=[str(self.id)])
+
 
 class Task(models.Model):
     PRIORITY_TASK = [

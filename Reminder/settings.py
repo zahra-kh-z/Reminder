@@ -129,6 +129,7 @@ STATIC_URL = '/static_zahra/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 # collect all STATICFILES to one folder is STATIC_ROOT, is a one string
 STATIC_ROOT = BASE_DIR / 'assets'
+# then in terminal: python manage.py collectstatic
 
 # MEDIA
 # for show uploaded images in admin page, then should add urlpatterns in urls.py
