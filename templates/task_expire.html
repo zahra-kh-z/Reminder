@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>expired tasks: </h1>
+    {% for task in tasks_expire_list %}
+        {{ task.title }}
+        <br>
+    {% endfor %}
+
+{% endblock %}

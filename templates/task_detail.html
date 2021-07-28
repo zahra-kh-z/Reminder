@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="task-entry">
+        <h2>title: {{ object.title }}</h2>
+        <p>description: {{ object.description }}</p>
+        <p>category: {{ object.category }}</p>
+        <p>priority: {{ object.priority }}</p>
+        <p>expire_date: {{ object.expire_date }}</p>
+        <p>status : {{ object.status }}</p>
+    </div>
+{% endblock content %}
