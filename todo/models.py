@@ -1,11 +1,37 @@
 from django.utils import timezone
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import slugify
 
 
 # Create your models here.
+class TodoManager(models.Manager):
+    """
+    manager for Task and Category models.
+    """
+    use_in_migrations = True
+
+    def get_all_tasks(self):
+        tasks = Task.objects.all()
+        return tasks
+
+    def task_expired(request):
+        now = timezone.now()
+        tasks_expire_list = Task.objects.filter(expire_date__lte=now)
+        return tasks_expire_list
+
+    def get_all_category(self):
+        categories = Category.objects.all()
+        return categories
+
+    def my_category(self, cat):
+        categories = Category.objects.all(name=cat)
+        return categories
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100)  # Like a varchar
+    objects = TodoManager()
 
     class Meta:
         verbose_name = "Category"
@@ -44,6 +70,8 @@ class Task(models.Model):
     category = models.ForeignKey(Category, default="general", on_delete=models.CASCADE)
     priority = models.IntegerField(choices=PRIORITY_TASK, default=4)
     expire_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
+    objects = TodoManager()
+    # slug = models.SlugField(null=False, unique=True)  # new
     # other fields
     today = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_TASK, default=ENABLE)
@@ -59,9 +87,15 @@ class Task(models.Model):
     def get_absolute_url(self):
         """for url absolute"""
         return reverse('task_detail', args=[str(self.id)])
+        # return reverse('tasks:task_detail', kwargs={'slug': self.slug})  # new
 
     @property
     def timesince(self):
         """for return now time"""
         now = timezone.now()
         return now
+
+    # def save(self, *args, **kwargs):  # new
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     return super().save(*args, **kwargs)

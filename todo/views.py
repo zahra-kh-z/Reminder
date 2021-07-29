@@ -58,34 +58,41 @@ class CategoryDetailView(DetailView):
     template_name = 'category_detail.html'
 
 
-def index(request):  # the index view
-    todos = Task.objects.all()  # quering all todos with the object manager
-    categories = Category.objects.all()  # getting all categories with object manager
-    results = Task.objects.filter(category__isnull=False)
-    res = []
-    for a in results:
-        res.append(a.category_id)
-    categories2 = []
-    [categories2.append(x) for x in res if x not in categories2]
+def cat_index(request):  # the index view
+    # results = Task.objects.filter(category__isnull=False)
+    # res = []
+    # [res.append(result.category_id) for result in results]
+    # # for result in results:
+    # #     res.append(result.category_id)
+    # categories2 = []
+    # [categories2.append(x) for x in res if x not in categories2]
 
-    list_cat = []
-    list_cat_empty = []
-    for c in categories:
-        if Task.objects.filter(category__name=c):
-            list_cat.append(c)
+    # list_cat = []
+    # list_cat_empty = []
+    # for cat in categories:
+    #     if Task.objects.filter(category__name=cat):
+    #         list_cat.append(cat)
+    #     else:
+    #         list_cat_empty.append(cat)
+    # category_full = list_cat
+    # category_empty = list_cat_empty
+
+    todos = Task.objects.get_all_tasks()  # quering all todos with the object manager
+    categories = Category.objects.get_all_category() # getting all categories with object manager
+    category_full = []
+    category_empty = []
+    for cat in categories:
+        if Task.objects.filter(category__name=cat):
+            category_full.append(cat)
         else:
-            list_cat_empty.append(c)
-    category_full = list_cat
-    category_empty = list_cat_empty
+            category_empty.append(cat)
 
-    return render(request, "categories_list.html", {'categories2': categories2,
-                                                    "categories": categories,
-                                                    "todos": todos,
+    return render(request, "categories_list.html", {"todos": todos,
                                                     "category_empty": category_empty,
                                                     'category_full': category_full})
 
 
 def show_expire(request):
-    now = timezone.now()
-    tasks_expire_list = Task.objects.filter(expire_date__lt=now)
-    return render(request, 'task_expire.html', {"tasks_expire_list": tasks_expire_list})
+    tasks_expire_list = Task.objects.task_expired()
+    context = {"tasks_expire_list": tasks_expire_list}
+    return render(request, 'task_expire.html', context)
