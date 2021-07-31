@@ -9,7 +9,21 @@
 {#        {{ form.as_p }}#}
         {{ form|crispy }}
         <br>
-        <button class="btn btn-success ml-2" type="submit">Save</button><br><br>
+        <button id="saveBtn" class="btn btn-success ml-2" type="submit">Save</button><br><br>
+
+
+{#{% block script %}#}
+            <script>
+                $("#saveBtn").on('click', function() {
+                       iziToast.success({
+                            title: 'OK',
+                            message: 'Successfully inserted record!',
+                        });
+                });
+
+            </script>
+{#{% endblock script %}#}
+
         </div>
     </form>
     </div>

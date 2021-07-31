@@ -1,11 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="task-entry">
-        <h2>title: {{ object.title }}</h2>
-        <p>description: {{ object.description }}</p>
-        <p>category: {{ object.category }}</p>
-        <p>priority: {{ object.priority }}</p>
-        <p>expire_date: {{ object.expire_date }}</p>
-        <p>status : {{ object.status }}</p>
-    </div>
+    {% load static %}
+    <link rel="stylesheet" href={% static 'css/task_list.css' %}>
+ <section class="bg-light p-3 m-3 text-center">
+
+ <h2>Task Details:</h2>
+{#Vertical Headings:#}
+      <img style="width: 200px; height: 200px;" class="ui medium rounded image" src={{object.picture.url}}>
+
+<table style="border-collapse:collapse; margin: 30px auto ">
+  <tr>
+    <th>Title</th>
+    <td>{{ object.title }}</td>
+  </tr>
+  <tr>
+    <th>Category</th>
+    <td>{{ object.category }}</td>
+  </tr>
+  <tr>
+    <th>Priority</th>
+    <td>{{ object.priority }}</td>
+  </tr>
+   <tr>
+    <th>Expire_date</th>
+    <td>{{ object.expire_date }}</td>
+  </tr>
+   <tr>
+    <th>Status</th>
+    <td>{{ object.status }}</td>
+  </tr>
+   <tr>
+    <th>Description</th>
+    <td>{{ object.description }}</td>
+  </tr>
+</table>
+
+ </section>
 {% endblock content %}
+
+{#Horizontal Headings:#}
+{#<section class="bg-light p-3 m-3 text-center">#}
+{#    <table style="border-collapse:collapse; margin: 30px auto ">#}
+{#    <thead>#}
+{#    <tr>#}
+{#        <th>Title</th>#}
+{#        <th>Category</th>#}
+{#        <th>Priority</th>#}
+{#        <th>Expire_date</th>#}
+{#        <th>Status</th>#}
+{#        <th>Description</th>#}
+{#    </tr>#}
+{#    </thead>#}
+{#    <tbody>#}
+{#    #}
+{#    <tr>#}
+{#        <td>{{ object.title }}</td>#}
+{#        <td>{{ object.category }}</td>#}
+{#        <td>{{ object.priority }}</td>#}
+{#        <td>{{ object.expire_date }}</td>#}
+{#        <td>{{ object.status }}</td>#}
+{#        <td>{{ object.description }}</td>#}
+{#    </tr>#}
+{#    #}
+{#    </tbody>#}
+{#    </table>#}
+{#</section>#}
+

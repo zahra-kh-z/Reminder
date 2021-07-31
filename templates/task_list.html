@@ -3,6 +3,8 @@
 {% block content %}
 {% load static %}
     <link rel="stylesheet" href={% static 'css/task_list.css' %}>
+    <h5><a class="text-decoration-none" href={% url 'task_datatable' %}>نمایش تسک با دیتا تیبل</a></h5>
+    <h5><a class="text-decoration-none" href="{% url 'task_list' %}">نمایش تسک با تیبل</a></h5>
         <section class="bg-light p-3 m-3 text-center">
         <table style="border-collapse:collapse; margin: 30px auto ">
         <thead>
@@ -15,7 +17,15 @@
         <tbody>
             {% for task in object_list %}
                 <tr>
-{#                    <td>{{ task.title|title }}</td>#}
+                        <!--
+                         timesince:
+                         Similar to timesince, except that it measures the time
+                         from now until the given date or datetime.
+                         title:
+                         Converts a string into titlecase by making words start with
+                         an uppercase character and the remaining characters lowercase.
+                        -->
+
                     {% if task.expire_date|date:"YmdHis" < task.timesince|date:"YmdHis" %}
                         <td>{{ task.title|title }}</td>
                         <td>task is expire</td>
@@ -47,8 +57,8 @@
     </section>
         </div>
     <div class="text-center">
-    <button class="btn btn-info " type="submit"><a class="text-dark text-decoration-none" href="{% url 'tasks_json_list' %}">save_task_list</a></button>
-    <button class="btn btn-info" type="submit"><a class="text-dark text-decoration-none" href="{% url 'show_expire' %}">expire_task_list</a></button><br><br>
+    <button class="btn btn-info " type="submit"><a class="text-dark text-decoration-none" href="{% url 'tasks_json_list' %}" download>Download</a></button>
+    <button class="btn btn-info" type="submit"><a class="text-dark text-decoration-none" href="{% url 'show_expire' %}" >expire_task_list</a></button><br><br>
     </div>
 {% endblock content %}
 

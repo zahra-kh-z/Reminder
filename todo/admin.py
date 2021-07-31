@@ -1,9 +1,12 @@
 from django.contrib import admin
 from .models import Task, Category
 
-
 # Register your models here.
 # admin.site.register(Category)
+
+"""
+for show apps and fields in admin panel you should registered your models.
+"""
 
 
 @admin.register(Task)

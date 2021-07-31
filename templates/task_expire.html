@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
-    <h1>expired tasks: </h1>
-    {% for task in tasks_expire_list %}
-        <div class="card" style="max-width: 600px">
-            <div class="card-header">
-                <span class="font-weight-bold"> {{ task.title|title }}</span>
+     <div class="container" style="width:600px; margin:0 auto;">
+        <h1>expired tasks: </h1>
+        {% for task in tasks_expire_list %}
+            <div class="card " style="max-width: 600px ">
+                <div class="card-header">
+                    <span class="font-weight-bold"> {{ task.title|title }}</span>
+                    <br>
+                <div class="card-footer text-center text-muted">
+                    <a class="text-decoration-none" href="{{ task.get_absolute_url }}">Detail</a> |
+                     <a class="text-decoration-none" href="{% url 'task_edit' task.pk %}">Edit</a> |
+                    <a class="text-decoration-none" href="{% url 'task_delete' task.pk %}">Delete</a>
+                </div>
                 <br>
-        <div class="card-footer text-center text-muted">
-                <a class="text-decoration-none" href="{{ task.get_absolute_url }}">Detail</a> |
-                 <a class="text-decoration-none" href="{% url 'task_edit' task.pk %}">Edit</a> |
-                <a class="text-decoration-none" href="{% url 'task_delete' task.pk %}">Delete</a>
+                </div>
             </div>
-        <br>
-            </div>
-    {% endfor %}
+        {% endfor %}
+     </div>
 
 {% endblock %}

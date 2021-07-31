@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'todo',
     # for save json task_list with serialized
     'rest_framework',
-
+    # for forms
     'crispy_forms',
 ]
 

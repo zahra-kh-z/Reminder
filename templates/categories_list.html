@@ -1,7 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Category{% endblock title %}
-{% block content %}
 
+{#{% block script %}#}
+{#    $(document).ready(function () {#}
+{#            $.ajax({#}
+{#                url: "{% url 'api-polls'%}",#}
+{#                type: 'GET',#}
+{#                dataType: 'json', // added data type#}
+{#                success: function(res) {#}
+{#                    console.log(res);#}
+{#                    $.each(res.tasks,function(index,value){#}
+{#                        console.log(value)#}
+{#                        $('#apitest').append('<li>'+value.title+'</li>')#}
+{#                    })#}
+{#                }#}
+{#            });#}
+{#        $(document).on("click",".taskRemove",function() {});#}
+{#    });#}
+{#{% endblock script %}#}
+
+
+{% block content %}
+{#<ul id='apitest'>#}
+{#</ul>#}
+
+{#    for show category by dropdown#}
+     <div class="container" style="width:500px; margin:0 auto;">
     <h1>Categories:</h1>
     {% for cat in category_full %}
     <ul class="navbar-nav ml-auto  ">
@@ -27,10 +51,12 @@
          <li><a class="text-decoration-none" href="#"> {{ cat.name }}</a></li>
     {% endfor %}
     <br>
+     </div>
 
-
+{#    for show category by list#}
 {#    <h1>Categories:</h1>#}
 {#    {% for cat in category_full %}#}
+{#        <br>#}
 {#         <li><a href="#"> {{ cat.name }}</a></li>#}
 {#        <li><a href="{% url 'cat_list_task'  %}?pk={{ cat.name }}">{{ cat.name }}</a></li>#}
 {##}
@@ -44,10 +70,11 @@
 {##}
 {#    {% endfor %}#}
 {##}
+{##}
+{#    <br><br>#}
 {#    <h1>Categories with no tasks:</h1>#}
 {#     {% for cat in category_empty %}#}
 {#         <li><a href="#"> {{ cat.name }}</a></li>#}
 {#    {% endfor %}#}
 {#    <br>#}
-
 {% endblock content %}
