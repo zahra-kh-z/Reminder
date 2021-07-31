@@ -3,8 +3,8 @@
 {% block content %}
 {% load static %}
     <link rel="stylesheet" href={% static 'css/task_list.css' %}>
-    <h5><a class="text-decoration-none" href={% url 'task_datatable' %}>نمایش تسک با دیتا تیبل</a></h5>
-    <h5><a class="text-decoration-none" href="{% url 'task_list' %}">نمایش تسک با تیبل</a></h5>
+    <h5><a class="text-decoration-none" href={% url 'task_datatable' %}>show task_list with datatable</a></h5>
+    <h5><a class="text-decoration-none" href="{% url 'task_list' %}">show task_list with table tag</a></h5>
         <section class="bg-light p-3 m-3 text-center">
         <table style="border-collapse:collapse; margin: 30px auto ">
         <thead>
