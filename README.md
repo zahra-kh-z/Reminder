@@ -17,4 +17,4 @@ rest-framework for api, serializer
 
 slug, forms, crispy, views.generic, APIView, ...
 
-![todo app home page](img/TODO.JPG "Title Text")
+![todo app home page](medias/TODO.JPG "Title Text")
