@@ -76,7 +76,8 @@ def cat_index(request):
     category_full = []  # category list with task
     category_empty = []  # category list without task
     for cat in categories:
-        if Task.objects.filter(category__name=cat):
+        # if Task.objects.filter(category__name=cat):
+        if Task.objects.cat_name(cat):
             category_full.append(cat)
         else:
             category_empty.append(cat)

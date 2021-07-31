@@ -23,13 +23,18 @@ class TodoManager(models.Manager):
         return tasks_expire_list
 
     def get_all_category(self):
+        """for return all object Category"""
         categories = Category.objects.all()
         return categories
 
     def my_category(self, cat):
-        """for return all object Category"""
+        """for return filter Category"""
         categories = Category.objects.all(name=cat)
         return categories
+
+    def cat_name(self, cat):
+        """return task with specific category"""
+        return Task.objects.filter(category__name=cat)
 
 
 class Category(models.Model):
